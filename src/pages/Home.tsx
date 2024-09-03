@@ -1,8 +1,8 @@
-// src/pages/Home.tsx
 import React, { useEffect, useState } from "react";
 import { fetchTopPodcasts } from "../services/podcastService";
-import { Podcast } from "../types";
+import { Podcast } from "../types/types";
 import "../styles/home.scss";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
@@ -28,15 +28,17 @@ const Home: React.FC = () => {
       <ul className="podcast-list">
         {podcasts.map((podcast) => (
           <li key={podcast.id.attributes["im:id"]} className="podcast-item">
-            <img
-              src={podcast["im:image"][2]?.label}
-              alt={podcast["im:name"].label}
-              className="podcast-image"
-            />
-            <div className="podcast-info">
-              <h2 className="podcast-title">{podcast["im:name"].label}</h2>
-              <p className="podcast-author">{podcast["im:artist"].label}</p>
-            </div>
+            <Link to={`/podcast/${podcast.id.attributes["im:id"]}`}>
+              <img
+                src={podcast["im:image"][2]?.label}
+                alt={podcast["im:name"].label}
+                className="podcast-image"
+              />
+              <div className="podcast-info">
+                <h2 className="podcast-title">{podcast["im:name"].label}</h2>
+                <p className="podcast-author">{podcast["im:artist"].label}</p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
