@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchPodcastDetails } from "../services/podcastService";
 import { Episode, PodcastDetails } from "../types/types";
+import Sidebar from "../components/Sidebar";
 
 interface PodcastDetailProps {
   setLoading: (loading: boolean) => void;
@@ -33,12 +34,12 @@ const PodcastDetail: React.FC<PodcastDetailProps> = ({ setLoading }) => {
 
   return (
     <div className="podcast-detail">
-      <aside className="sidebar">
-        <img src={podcast.artworkUrl600} alt={podcast.collectionName} />
-        <h2>{podcast.collectionName}</h2>
-        <p>{podcast.artistName}</p>
-        <p>{podcast.description}</p>
-      </aside>
+      <Sidebar
+        imageUrl={podcast.artworkUrl600}
+        title={podcast.collectionName}
+        author={podcast.artistName}
+        description={podcast.description}
+      />
       <main className="episodes">
         <h3>Episodes</h3>
         <ul>

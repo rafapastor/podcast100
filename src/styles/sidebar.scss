@@ -1,0 +1,47 @@
+@import "variables";
+
+.sidebar {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 250px;
+}
+
+.sidebar-section {
+  margin-bottom: 20px;
+}
+
+.sidebar-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid $border-color;
+  margin: 10px 0;
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: $primary-text-color;
+}
+
+.sidebar-author {
+  font-size: 14px;
+  color: $secondary-text-color;
+}
+
+.sidebar-description-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: $primary-text-color;
+  margin-bottom: 5px;
+}
+
+.sidebar-description {
+  font-size: 14px;
+  color: $secondary-text-color;
+}
