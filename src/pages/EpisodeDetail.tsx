@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { fetchPodcastDetails } from "../services/podcastService";
-import { Episode } from "../types/types";
+import { useSelector } from "react-redux";
+import Sidebar from "../components/Sidebar";
+import { RootState } from "../store/store";
+import "../styles/episodeDetail.scss";
 
 interface EpisodeDetailProps {
   setLoading: (loading: boolean) => void;
@@ -12,42 +14,41 @@ const EpisodeDetail: React.FC<EpisodeDetailProps> = ({ setLoading }) => {
     podcastId: string;
     episodeId: string;
   }>();
-  const [episode, setEpisode] = useState<Episode | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  setLoading(true);
+  const podcast = useSelector((state: RootState) =>
+    state.podcast.podcasts.find((podcast) => podcast.id === podcastId)
+  );
+  if (!podcast) {
+    return null;
+  }
+  const episode = podcast.details?.episodes.find(
+    (episode) => episode.trackId == episodeId
+  );
 
-  useEffect(() => {
-    const loadEpisodeDetails = async () => {
-      try {
-        setLoading(true);
-        const details = await fetchPodcastDetails(podcastId!);
-        const selectedEpisode = details.find(
-          (ep: Episode) => ep.trackId.toString() === episodeId
-        );
-        if (selectedEpisode) {
-          setEpisode(selectedEpisode);
-        } else {
-          setError("Episode not found.");
-        }
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load episode details." + err);
-        setLoading(false);
-      }
-    };
-
-    loadEpisodeDetails();
-  }, [podcastId, episodeId, setLoading]);
-
-  if (error) return <div>{error}</div>;
+  if (!podcast || !episode || !podcast.details) {
+    return null;
+  } else {
+    setLoading(false);
+  }
 
   return (
-    <div className="episode-detail">
-      <h1>{episode?.trackName}</h1>
-      <p>{episode?.description}</p>
-      <audio controls>
-        <source src={episode?.episodeUrl} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+    <div className="episode-detail-container">
+      <Sidebar
+        imageUrl={podcast.details?.artworkUrl600}
+        title={podcast.details?.collectionName}
+        author={podcast.details?.artistName}
+        description={podcast.summary || "No description available"}
+      />
+      <div className="episode-detail-content">
+        <h1 className="episode-title">{episode?.trackName}</h1>
+        <p className="episode-description">{episode?.description}</p>
+        <div className="audio-player">
+          <audio controls>
+            <source src={episode?.episodeUrl} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,16 +1,89 @@
-.podcast-detail {
+@import "variables.scss";
+
+// src/styles/podcastDetail.scss
+
+// Colores
+$primary-color: #007aff; // Cambia esto por el color primario de tu diseño si es diferente
+
+.podcast-detail-container {
   display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  align-items: flex-start;
+}
 
-  .sidebar {
-    width: 250px;
-    background: #181818;
-    padding: 20px;
-    border-right: 1px solid #333;
-  }
+.podcast-main {
+  flex: 1;
+  margin-left: 40px;
+}
 
-  .episodes {
-    flex: 1;
-    padding: 20px;
-    color: #fff;
-  }
+// --- Sidebar dinámico ---
+.podcast-sidebar {
+  position: sticky;
+  top: 20px;
+  height: auto;
+  max-height: 100vh;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombreado más fuerte
+}
+
+.podcast-sidebar img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.total-episodes {
+  margin-bottom: 20px;
+  padding: 1px 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+// --- Tabla de episodios ---
+.episode-list-container {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.episode-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.episode-list th,
+.episode-list td {
+  padding: 15px;
+  text-align: left;
+}
+
+.episode-list th {
+  background-color: #ffffff; // Fondo blanco para los títulos
+  border-bottom: 2px solid #ddd;
+}
+
+.episode-list tr.even {
+  background-color: #fafafa;
+}
+
+.episode-list tr.odd {
+  background-color: #ffffff;
+}
+
+.episode-list tr:hover {
+  background-color: #eaeaea;
+  cursor: pointer;
+}
+
+.episode-list td:first-child {
+  font-size: 14px;
+  color: #2997ff;
 }

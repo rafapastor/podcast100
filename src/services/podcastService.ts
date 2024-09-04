@@ -57,6 +57,8 @@ export const fetchPodcastDetails = async (podcastId: string) => {
         trackName: episode.trackName,
         description: episode.description,
         episodeUrl: episode.episodeUrl,
+        releaseDate: new Date(episode.releaseDate).toLocaleDateString(),
+        trackTimeMillis: episode.trackTimeMillis,
       })),
     };
 

@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <hr className="sidebar-divider" />
       <div className="sidebar-section">
         <h2 className="sidebar-title">{title}</h2>
-        <p className="sidebar-author">{author}</p>
+        <p className="sidebar-author">by {author}</p>
       </div>
       <hr className="sidebar-divider" />
       <div className="sidebar-section">

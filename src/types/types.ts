@@ -54,8 +54,10 @@ export interface PodcastDetails {
 }
 
 export interface Episode {
-  trackId: number;
+  trackId: string;
   trackName: string;
   description: string;
   episodeUrl: string;
+  releaseDate: string;
+  trackTimeMillis: number;
 }

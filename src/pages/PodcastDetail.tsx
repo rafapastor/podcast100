@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Episode } from "../types/types";
+import { Link, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { loadPodcastDetails } from "../store/podcastThunks";
+import "../styles/podcastDetail.scss";
 
 interface PodcastDetailProps {
   setLoading: (loading: boolean) => void;
@@ -33,26 +33,56 @@ const PodcastDetail: React.FC<PodcastDetailProps> = ({ setLoading }) => {
     return null;
   }
 
+  const formatDuration = (millis: number) => {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = Math.floor((millis % 60000) / 1000);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
   return (
-    <div className="podcast-detail">
+    <div className="podcast-detail-container">
       <Sidebar
         imageUrl={podcast.details?.artworkUrl600}
         title={podcast.details?.collectionName}
         author={podcast.details?.artistName}
-        description={podcast.summary}
+        description={podcast.summary || "No description available"}
       />
-      <main className="episodes">
-        <h3>Episodes</h3>
-        <ul>
-          {podcast.details?.episodes?.map((episode: Episode) => (
-            <li key={episode.trackId}>
-              <a href={`/podcast/${podcastId}/episode/${episode.trackId}`}>
-                {episode.trackName}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </main>
+      <div className="podcast-main">
+        <div className="total-episodes">
+          <h3>Episodes: {podcast.details?.episodes.length || 0}</h3>
+        </div>
+
+        <div className="episode-list-container">
+          <table className="episode-list">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              {podcast.details?.episodes.map((episode, index) => (
+                <tr
+                  key={episode.trackId}
+                  className={index % 2 === 0 ? "even" : "odd"}
+                >
+                  <td>
+                    <Link
+                      to={`/podcast/${podcast.id}/episode/${episode.trackId}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      {episode.trackName}
+                    </Link>
+                  </td>
+                  <td>{episode.releaseDate}</td>{" "}
+                  <td>{formatDuration(episode.trackTimeMillis)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
