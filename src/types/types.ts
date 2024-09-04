@@ -1,4 +1,4 @@
-export interface Podcast {
+export interface RawPodcast {
   id: {
     attributes: {
       "im:id": string;
@@ -13,6 +13,36 @@ export interface Podcast {
   "im:image": Array<{
     label: string;
   }>;
+  summary: {
+    label: string;
+  };
+  link: {
+    attributes: {
+      href: string;
+    };
+  };
+  category: {
+    attributes: {
+      label: string;
+    };
+  };
+  "im:releaseDate": {
+    attributes: {
+      label: string;
+    };
+  };
+}
+
+export interface Podcast {
+  id: string;
+  name: string;
+  image: string;
+  summary: string;
+  author: string;
+  link: string;
+  category: string;
+  releaseDate: string;
+  details?: PodcastDetails;
 }
 
 export interface PodcastDetails {
@@ -28,5 +58,4 @@ export interface Episode {
   trackName: string;
   description: string;
   episodeUrl: string;
-  artworkUrl600: string;
 }

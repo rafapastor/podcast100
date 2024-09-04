@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchPodcastDetails } from "../services/podcastService";
-import { Episode, PodcastDetails } from "../types/types";
+import { Episode } from "../types/types";
 import Sidebar from "../components/Sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
+import { loadPodcastDetails } from "../store/podcastThunks";
 
 interface PodcastDetailProps {
   setLoading: (loading: boolean) => void;
@@ -10,40 +12,39 @@ interface PodcastDetailProps {
 
 const PodcastDetail: React.FC<PodcastDetailProps> = ({ setLoading }) => {
   const { podcastId } = useParams<{ podcastId: string }>();
-  const [podcast, setPodcast] = useState<PodcastDetails | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const podcast = useSelector((state: RootState) =>
+    state.podcast.podcasts.find((podcast) => podcast.id === podcastId)
+  );
 
   useEffect(() => {
-    const loadPodcastDetails = async () => {
-      try {
-        setLoading(true);
-        const details = await fetchPodcastDetails(podcastId!);
-        setPodcast(details[0]);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load podcast details." + err);
-        setLoading(false);
-      }
+    const fetchDetails = async () => {
+      setLoading(true);
+      await dispatch(loadPodcastDetails(podcastId!));
+      setLoading(false);
     };
 
-    loadPodcastDetails();
-  }, [podcastId, setLoading]);
+    if (podcastId) {
+      fetchDetails();
+    }
+  }, [dispatch, podcastId, setLoading]);
 
-  if (error) return <div>{error}</div>;
-  if (!podcast) return <div>Podcast not found.</div>;
+  if (!podcast || !podcast.details) {
+    return null;
+  }
 
   return (
     <div className="podcast-detail">
       <Sidebar
-        imageUrl={podcast.artworkUrl600}
-        title={podcast.collectionName}
-        author={podcast.artistName}
-        description={podcast.description}
+        imageUrl={podcast.details?.artworkUrl600}
+        title={podcast.details?.collectionName}
+        author={podcast.details?.artistName}
+        description={podcast.summary}
       />
       <main className="episodes">
         <h3>Episodes</h3>
         <ul>
-          {podcast.episodes?.map((episode: Episode) => (
+          {podcast.details?.episodes?.map((episode: Episode) => (
             <li key={episode.trackId}>
               <a href={`/podcast/${podcastId}/episode/${episode.trackId}`}>
                 {episode.trackName}

@@ -1,9 +1,6 @@
 import axios from "axios";
-import { Podcast } from "../types/types";
-import {
-  getLocalStorageData,
-  setLocalStorageData,
-} from "../utils/storageUtils";
+import { Episode, Podcast, RawPodcast } from "../types/types";
+import { setLocalStorageData } from "../utils/storageUtils";
 
 const BASE_URL = "https://api.allorigins.win/get?url=";
 
@@ -11,12 +8,6 @@ const PODCASTS_STORAGE_KEY = "top_podcasts";
 
 // get the top 100 podcasts from the iTunes API
 export const fetchTopPodcasts = async (): Promise<Podcast[]> => {
-  const cachedData = getLocalStorageData(PODCASTS_STORAGE_KEY);
-
-  if (cachedData) {
-    return cachedData;
-  }
-
   try {
     const response = await axios.get(
       `${BASE_URL}${encodeURIComponent(
@@ -24,7 +15,18 @@ export const fetchTopPodcasts = async (): Promise<Podcast[]> => {
       )}`
     );
     const data = JSON.parse(response.data.contents);
-    const podcasts = data.feed.entry;
+    const podcasts: Podcast[] = data.feed.entry.map(
+      (podcast: RawPodcast): Podcast => ({
+        id: podcast.id.attributes["im:id"],
+        name: podcast["im:name"].label,
+        image: podcast["im:image"][2].label,
+        summary: podcast.summary.label,
+        author: podcast["im:artist"].label,
+        link: podcast.link.attributes.href,
+        category: podcast.category.attributes.label,
+        releaseDate: podcast["im:releaseDate"].attributes.label,
+      })
+    );
 
     setLocalStorageData(PODCASTS_STORAGE_KEY, podcasts);
 
@@ -38,12 +40,6 @@ export const fetchTopPodcasts = async (): Promise<Podcast[]> => {
 export const fetchPodcastDetails = async (podcastId: string) => {
   const PODCAST_DETAILS_STORAGE_KEY = `podcast_${podcastId}`;
 
-  const cachedData = getLocalStorageData(PODCAST_DETAILS_STORAGE_KEY);
-
-  if (cachedData) {
-    return cachedData;
-  }
-
   try {
     const response = await axios.get(
       `${BASE_URL}${encodeURIComponent(
@@ -51,7 +47,18 @@ export const fetchPodcastDetails = async (podcastId: string) => {
       )}`
     );
     const data = JSON.parse(response.data.contents);
-    const podcastDetails = data.results;
+    const podcastDetails = {
+      collectionName: data.results[0].collectionName,
+      artworkUrl600: data.results[0].artworkUrl600,
+      artistName: data.results[0].artistName,
+      description: data.results[0].collectionName,
+      episodes: data.results.slice(1).map((episode: Episode) => ({
+        trackId: episode.trackId,
+        trackName: episode.trackName,
+        description: episode.description,
+        episodeUrl: episode.episodeUrl,
+      })),
+    };
 
     setLocalStorageData(PODCAST_DETAILS_STORAGE_KEY, podcastDetails);
 
