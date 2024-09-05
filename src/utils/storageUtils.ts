@@ -1,13 +1,18 @@
 export const getLocalStorageData = (key: string) => {
   const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
+  return data ? JSON.parse(data).data : null;
 };
 
 export const setLocalStorageData = (key: string, data: unknown) => {
-  localStorage.setItem(key, JSON.stringify(data));
+  const item = {
+    data,
+    timestamp: Date.now(),
+  };
+  localStorage.setItem(key, JSON.stringify(item));
 };
 
-export const isDataExpired = (timestampKey: string, expirationTime: number) => {
-  const timestamp = localStorage.getItem(timestampKey);
+export const isDataExpired = (key: string, expirationTime: number) => {
+  const data = localStorage.getItem(key);
+  const timestamp = data ? JSON.parse(data).timestamp : null;
   return !timestamp || Date.now() - parseInt(timestamp) > expirationTime;
 };

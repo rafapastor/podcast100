@@ -11,7 +11,7 @@ import {
 } from "../utils/storageUtils";
 
 const PODCASTS_STORAGE_KEY = "top_podcasts";
-const PODCASTS_TIMESTAMP_KEY = "top_podcasts_timestamp";
+//const PODCASTS_TIMESTAMP_KEY = "top_podcasts_timestamp";
 const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
 export const loadPodcasts = createAsyncThunk(
@@ -21,7 +21,7 @@ export const loadPodcasts = createAsyncThunk(
 
     if (
       podcastsFromStorage &&
-      !isDataExpired(PODCASTS_TIMESTAMP_KEY, TWENTY_FOUR_HOURS)
+      !isDataExpired(PODCASTS_STORAGE_KEY, TWENTY_FOUR_HOURS)
     ) {
       return podcastsFromStorage.map((podcast: Podcast) => ({
         ...podcast,
@@ -35,7 +35,7 @@ export const loadPodcasts = createAsyncThunk(
       }));
 
       setLocalStorageData(PODCASTS_STORAGE_KEY, podcastsWithDetails);
-      setLocalStorageData(PODCASTS_TIMESTAMP_KEY, Date.now().toString());
+      //setLocalStorageData(PODCASTS_TIMESTAMP_KEY, Date.now().toString());
 
       return podcastsWithDetails;
     }
@@ -51,9 +51,9 @@ export const loadPodcastDetails = createAsyncThunk(
     if (!podcast) throw new Error("Podcast not found");
 
     const detailsStorageKey = `podcast_${podcastId}_details`;
-    const detailsTimestampKey = `podcast_${podcastId}_timestamp`;
+    //const detailsTimestampKey = `podcast_${podcastId}_timestamp`;
 
-    if (!isDataExpired(detailsTimestampKey, TWENTY_FOUR_HOURS)) {
+    if (!isDataExpired(detailsStorageKey, TWENTY_FOUR_HOURS)) {
       const detailsFromStorage = getLocalStorageData(detailsStorageKey);
       if (detailsFromStorage) {
         return { podcastId, details: detailsFromStorage };
@@ -63,7 +63,7 @@ export const loadPodcastDetails = createAsyncThunk(
     const details = await fetchPodcastDetails(podcastId);
 
     setLocalStorageData(detailsStorageKey, details);
-    setLocalStorageData(detailsTimestampKey, Date.now().toString());
+    //setLocalStorageData(detailsTimestampKey, Date.now().toString());
 
     return { podcastId, details };
   }

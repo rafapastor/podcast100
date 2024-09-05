@@ -11,17 +11,19 @@ function App() {
   return (
     <>
       <Header isLoading={loading} />
-      <Routes>
-        <Route path="/" element={<Home setLoading={setLoading} />} />
-        <Route
-          path="/podcast/:podcastId"
-          element={<PodcastDetail setLoading={setLoading} />}
-        />
-        <Route
-          path="/podcast/:podcastId/episode/:episodeId"
-          element={<EpisodeDetail setLoading={setLoading} />}
-        />
-      </Routes>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home setLoading={setLoading} />} />
+          <Route
+            path="/podcast/:podcastId"
+            element={<PodcastDetail setLoading={setLoading} />}
+          />
+          <Route
+            path="/podcast/:podcastId/episode/:episodeId"
+            element={<EpisodeDetail setLoading={setLoading} />}
+          />
+        </Routes>
+      </div>
     </>
   );
 }
