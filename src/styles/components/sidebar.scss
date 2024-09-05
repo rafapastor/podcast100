@@ -1,9 +1,7 @@
-@import "variables";
-
 .sidebar {
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid $border-color;
   border-radius: 8px;
   width: 250px;
   box-shadow: 0 4px 6px rgba(0, 0.2, 0.2, 0.2);

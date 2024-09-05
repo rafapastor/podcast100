@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Sidebar.scss";
 
 interface SidebarProps {
   imageUrl: string;

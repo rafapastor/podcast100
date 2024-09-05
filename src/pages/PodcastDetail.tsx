@@ -4,7 +4,6 @@ import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { loadPodcastDetails } from "../store/podcastThunks";
-import "../styles/podcastDetail.scss";
 
 interface PodcastDetailProps {
   setLoading: (loading: boolean) => void;

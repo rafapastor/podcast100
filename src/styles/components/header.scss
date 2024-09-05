@@ -1,18 +1,16 @@
-@import "variables.scss";
-
 .header {
   display: flex;
-  justify-content: center; /* Centra el contenedor del header si es necesario */
+  justify-content: center;
   align-items: center;
   padding: 10px 20px;
   background-color: white;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid $border-color;
 
   .header-content {
     display: flex;
-    justify-content: space-between; /* Distribuye el espacio entre el título y el loader */
+    justify-content: space-between;
     align-items: center;
-    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho del header */
+    width: 100%;
   }
 
   .header-logo {
@@ -29,7 +27,7 @@
     border-top: 4px solid transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-left: auto; /* Empuja el loader a la derecha */
+    margin-left: auto;
   }
 
   @keyframes spin {

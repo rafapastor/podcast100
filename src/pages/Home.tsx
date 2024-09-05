@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Podcast } from "../types/types";
-import "../styles/home.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";

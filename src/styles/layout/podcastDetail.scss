@@ -1,9 +1,4 @@
-@import "variables.scss";
-
-// src/styles/podcastDetail.scss
-
-// Colores
-$primary-color: #007aff; // Cambia esto por el color primario de tu diseño si es diferente
+$primary-color: #007aff;
 
 .podcast-detail-container {
   display: flex;
@@ -18,7 +13,6 @@ $primary-color: #007aff; // Cambia esto por el color primario de tu diseño si e
   margin-left: 40px;
 }
 
-// --- Sidebar dinámico ---
 .podcast-sidebar {
   position: sticky;
   top: 20px;
@@ -27,7 +21,7 @@ $primary-color: #007aff; // Cambia esto por el color primario de tu diseño si e
   background-color: #f8f8f8;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombreado más fuerte
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .podcast-sidebar img {
@@ -46,7 +40,6 @@ $primary-color: #007aff; // Cambia esto por el color primario de tu diseño si e
   color: black;
 }
 
-// --- Tabla de episodios ---
 .episode-list-container {
   background-color: #fefefe;
   padding: 20px;
@@ -66,7 +59,7 @@ $primary-color: #007aff; // Cambia esto por el color primario de tu diseño si e
 }
 
 .episode-list th {
-  background-color: #ffffff; // Fondo blanco para los títulos
+  background-color: #ffffff;
   border-bottom: 2px solid #ddd;
 }
 

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Sidebar from "../components/Sidebar";
 import { RootState } from "../store/store";
-import "../styles/episodeDetail.scss";
 
 interface EpisodeDetailProps {
   setLoading: (loading: boolean) => void;

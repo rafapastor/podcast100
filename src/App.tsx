@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import "./styles/_variables.scss";
 import Home from "./pages/Home";
 import PodcastDetail from "./pages/PodcastDetail";
 import EpisodeDetail from "./pages/EpisodeDetail";
