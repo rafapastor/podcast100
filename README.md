@@ -1,32 +1,61 @@
 # Podcast100
 
-Podcast100 es una aplicación de podcasts musicales que permite a los usuarios explorar los 100 podcasts más populares del momento, ver detalles de cada podcast y reproducir episodios específicos.
+Podcast100 is a React application that displays the top 100 most popular podcasts, with details for each podcast and individual episodes. It uses **localStorage** to store data, which expires every 24 hours to avoid excessive API calls.
 
-## Características
+## Features
 
-- **Vista Principal**: Muestra una lista de los 100 podcasts más populares.
-- **Detalle de Podcast**: Muestra la descripción, autor, y episodios de un podcast seleccionado.
-- **Detalle de Episodio**: Muestra información detallada de un episodio y permite reproducirlo.
+- **Main View**: Displays a list of the 100 most popular podcasts where you can filter by podcast title or author.
+- **Podcast Detail**: Displays the description, author, and episodes of a selected podcast.
+- **Episode Detail**: Displays detailed information about an episode and allows you to play it.
 
-## Tecnologías Utilizadas
+## Technologies used
 
-- **React** con TypeScript
-- **React Router** para la navegación
-- **Axios** para la gestión de peticiones HTTP
-- **Sass** para los estilos
-- **Vite** como herramienta de construcción
+- **React** (with TypeScript)
+- **Vite** for fast development and bundling
+- **SCSS** for styling
+- **Redux** for state management
+- **localStorage** for data persistence
+- **Sass** for CSS preprocessing
 
-## Arquitectura del Proyecto
+## Project structure
 
-El proyecto sigue principios SOLID para garantizar un código mantenible y escalable. La lógica de presentación y obtención de datos está separada:
-
-- **Componentes**: Se encargan solo de la presentación de datos y la interacción del usuario.
-- **Servicios**: Gestionan la lógica de negocio, como las llamadas a APIs, y están desacoplados de los componentes.
+```bash
+├── src
+│   ├── assets         # Static assets
+│   ├── components     # Reusable components of the app
+│   ├── pages          # Main application pages (Home, PodcastDetails, EpisodeDetails)
+│   ├── services       # Services for API calls
+│   ├── store          # Redux configuration (slices and thunks)
+│   ├── styles         # SCSS files for styling
+│   ├── utils          # Utilities (e.g., localStorage handling)
+│   └── main.tsx       # Main entry point of the app
+```
 
 ## Instalación y Ejecución
 
-1. Clona el repositorio:
+### 1. Clone the repository
 
-   ```bash
-   git clone https://github.com/rafapastor/podcast100
-   ```
+```bash
+git clone https://github.com/your_username/podcast100.git
+cd podcast100
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the application in development mode
+
+```bash
+npm run dev
+```
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+This will generate the optimized files in the dist folder.

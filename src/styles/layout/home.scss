@@ -8,13 +8,12 @@
 
   .search-container {
     display: flex;
-    flex-direction: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
     @media (min-width: 601px) {
       justify-content: end;
     }
-    align-items: center;
-    margin-bottom: 20px;
-
     .podcasts-count {
       font-size: 16px;
       font-weight: bold;
